@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter the Terminal</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("background.png"); /* replace with your image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .enter-button {
+      border: 2px solid #00ff9c;
+      background: rgba(0, 0, 0, 0.75);
+      color: #00ff9c;
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      padding: 0.75em 1.5em;
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.25s ease;
+    }
+
+    .enter-button:hover,
+    .enter-button:focus {
+      background: #00ff9c;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .enter-button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <a href="module01.html">
+      <button class="enter-button">
+        Enter the Terminal
+      </button>
+    </a>
+  </div>
+</body>
+</html>

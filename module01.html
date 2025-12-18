@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Module 01</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+* { box-sizing: border-box; margin:0; padding:0; font-family: system-ui,sans-serif; }
+body { min-height: 100vh; background-image: url("background_module01.png"); background-size: cover; background-position: center; }
+
+.layer { display: grid; grid-template-columns: repeat(4,1fr); gap:0.5rem; padding:1rem; min-height:100vh; }
+
+.module button { width: 100%; padding: 0.45rem 0; font-size:0.7rem; background:#1e90ff; color:white; border:none; border-radius:4px; cursor:pointer; }
+
+@media(min-width:768px) {
+  .layer { position:relative; display:block; padding:0; }
+  .module { position:absolute; width:70px; }
+}
+
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); align-items:center; justify-content:center; z-index:1000; padding:1rem; }
+.modal-content { background:#111; color:#fff; width:100%; max-width:480px; max-height:90vh; overflow-y:auto; padding:1.25rem; border-radius:8px; }
+.modal-content p { margin-bottom:1rem; line-height:1.45; font-size:0.9rem; }
+.footnotes { border-top:1px solid #333; margin-top:1rem; padding-top:0.75rem; font-size:0.75rem; color:#ccc; }
+.footnotes a { color:#1e90ff; text-decoration:none; }
+.close { background:#1e90ff; color:white; border:none; padding:0.5rem; width:100%; margin-top:0.5rem; border-radius:4px; font-size:0.8rem; cursor:pointer; }
+</style>
+</head>
+
+<body>
+<div class="layer" id="buttons-container"></div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div id="modal-text"></div>
+    <button class="close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+let humansData = {};
+
+// Load JSON
+fetch("humans.json")
+  .then(res => res.json())
+  .then(data => {
+    humansData = data;
+    createButtons();
+  })
+  .catch(err => console.error("Error loading humans.json:", err));
+
+function createButtons() {
+  const container = document.getElementById("buttons-container");
+  Object.keys(humansData).forEach(id => {
+    const h = humansData[id];
+    const btnWrapper = document.createElement("div");
+    btnWrapper.className = "module";
+
+    // Apply desktop position if specified
+    if (h.top && h.left) {
+      btnWrapper.style.setProperty('--top', h.top);
+      btnWrapper.style.setProperty('--left', h.left);
+      btnWrapper.style.top = h.top;
+      btnWrapper.style.left = h.left;
+    }
+
+    const button = document.createElement("button");
+    button.textContent = "human" + id;
+    button.onclick = () => openModal(id);
+
+    btnWrapper.appendChild(button);
+    container.appendChild(btnWrapper);
+  });
+}
+
+function openModal(id) {
+  const h = humansData[id];
+  if(!h){ alert("Content not loaded yet."); return; }
+
+  document.getElementById("modal-text").innerHTML = `
+    <p>${h.p1.text} <sup>1</sup></p>
+    <p>${h.p2.text} <sup>2</sup></p>
+    <div class="footnotes">
+      <div><sup>1</sup> <a href="${h.p1.footnote}" target="_blank" rel="noopener">Footnote 1 link</a></div>
+      <div><sup>2</sup> <a href="${h.p2.footnote}" target="_blank" rel="noopener">Footnote 2 link</a></div>
+    </div>
+  `;
+
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+</body>
+</html>
