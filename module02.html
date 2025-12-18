@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 02</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; font-family: system-ui,sans-serif; }
+body { min-height:100vh; background-image: url("background_module02.png"); background-size:cover; background-position:center; }
+
+.nav-btn {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e90ff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.layer { display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; padding:1rem; min-height:100vh; position:relative; }
+
+.module button { width:100%; padding:0.45rem 0; font-size:0.7rem; background:#1e90ff; color:white; border:none; border-radius:4px; cursor:pointer; }
+
+@media(min-width:768px) {
+  .module { position:absolute; width:70px; }
+}
+
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); align-items:center; justify-content:center; z-index:1000; padding:1rem; }
+.modal-content { background:#111; color:#fff; width:100%; max-width:480px; max-height:90vh; overflow-y:auto; padding:1.25rem; border-radius:8px; }
+.modal-content p { margin-bottom:1rem; line-height:1.45; font-size:0.9rem; }
+.footnotes { border-top:1px solid #333; margin-top:1rem; padding-top:0.75rem; font-size:0.75rem; color:#ccc; }
+.footnotes a { color:#1e90ff; text-decoration:none; }
+.close { background:#1e90ff; color:white; border:none; padding:0.5rem; width:100%; margin-top:0.5rem; border-radius:4px; font-size:0.8rem; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<!-- Navigation button to Module 03 -->
+<button class="nav-btn" onclick="location.href='module03.html'">Go to Module 03</button>
+
+<div class="layer" id="buttons-container"></div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div id="modal-text"></div>
+    <button class="close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+// Fully self-contained avatars data
+const avatarsData = {
+  "1": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar1p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar1p2"},"top":"10%","left":"10%"},
+  "2": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar2p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar2p2"},"top":"10%","left":"25%"},
+  "3": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar3p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar3p2"},"top":"10%","left":"40%"},
+  "4": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar4p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar4p2"},"top":"10%","left":"55%"},
+  "5": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar5p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar5p2"},"top":"25%","left":"10%"},
+  "6": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar6p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar6p2"},"top":"25%","left":"25%"},
+  "7": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar7p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar7p2"},"top":"25%","left":"40%"},
+  "8": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar8p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar8p2"},"top":"25%","left":"55%"},
+  "9": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar9p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar9p2"},"top":"40%","left":"10%"},
+  "10": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar10p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar10p2"},"top":"40%","left":"25%"},
+  "11": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar11p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar11p2"},"top":"40%","left":"40%"},
+  "12": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar12p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar12p2"},"top":"40%","left":"55%"},
+  "13": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar13p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar13p2"},"top":"55%","left":"10%"},
+  "14": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar14p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar14p2"},"top":"55%","left":"25%"},
+  "15": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar15p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar15p2"},"top":"55%","left":"40%"},
+  "16": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar16p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar16p2"},"top":"55%","left":"55%"},
+  "17": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar17p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar17p2"},"top":"70%","left":"10%"},
+  "18": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar18p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar18p2"},"top":"70%","left":"25%"},
+  "19": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar19p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar19p2"},"top":"70%","left":"40%"},
+  "20": {"p1":{"text":"My avatar design is inspired by the science fiction short story text ...","footnote":"https://example.com/avatar20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/avatar20p2"},"top":"70%","left":"55%"}
+};
+
+// Create buttons
+function createButtons() {
+  const container = document.getElementById("buttons-container");
+  container.innerHTML = "";
+
+  Object.keys(avatarsData).forEach(id => {
+    const h = avatarsData[id];
+    const btnWrapper = document.createElement("div");
+    btnWrapper.className = "module";
+    if(h.top && h.left){
+      btnWrapper.style.top = h.top;
+      btnWrapper.style.left = h.left;
+    }
+    const button = document.createElement("button");
+    button.textContent = "avatar" + id; // Button text
+    button.addEventListener("click", () => openModal(id));
+    btnWrapper.appendChild(button);
+    container.appendChild(btnWrapper);
+  });
+}
+
+// Modal functions
+function openModal(id){
+  const h = avatarsData[id];
+  if(!h){ alert("Content not loaded yet."); return; }
+
+  document.getElementById("modal-text").innerHTML = `
+    <p>${h.p1.text} <sup>1</sup></p>
+    <p>${h.p2.text} <sup>2</sup></p>
+    <div class="footnotes">
+      <div><sup>1</sup> <a href="${h.p1.footnote}" target="_blank" rel="noopener">Footnote 1 link</a></div>
+      <div><sup>2</sup> <a href="${h.p2.footnote}" target="_blank" rel="noopener">Footnote 2 link</a></div>
+    </div>
+  `;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display = "none";
+}
+
+// Initialize buttons
+createButtons();
+</script>
+
+</body>
+</html>
