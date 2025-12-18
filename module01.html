@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Module 01</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-* { box-sizing: border-box; margin:0; padding:0; font-family: system-ui,sans-serif; }
-body { min-height: 100vh; background-image: url("background_module01.png"); background-size: cover; background-position: center; }
+* { box-sizing:border-box; margin:0; padding:0; font-family: system-ui,sans-serif; }
+body { min-height:100vh; background-image: url("background_module01.png"); background-size:cover; background-position:center; }
 
-.layer { display: grid; grid-template-columns: repeat(4,1fr); gap:0.5rem; padding:1rem; min-height:100vh; }
+.layer { display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; padding:1rem; min-height:100vh; position:relative; }
 
-.module button { width: 100%; padding: 0.45rem 0; font-size:0.7rem; background:#1e90ff; color:white; border:none; border-radius:4px; cursor:pointer; }
+.module button { width:100%; padding:0.45rem 0; font-size:0.7rem; background:#1e90ff; color:white; border:none; border-radius:4px; cursor:pointer; }
 
 @media(min-width:768px) {
-  .layer { position:relative; display:block; padding:0; }
   .module { position:absolute; width:70px; }
 }
 
@@ -25,8 +24,8 @@ body { min-height: 100vh; background-image: url("background_module01.png"); back
 .close { background:#1e90ff; color:white; border:none; padding:0.5rem; width:100%; margin-top:0.5rem; border-radius:4px; font-size:0.8rem; cursor:pointer; }
 </style>
 </head>
-
 <body>
+
 <div class="layer" id="buttons-container"></div>
 
 <div class="modal" id="modal">
@@ -39,9 +38,12 @@ body { min-height: 100vh; background-image: url("background_module01.png"); back
 <script>
 let humansData = {};
 
-// Load JSON
+// Fetch JSON from your GitHub Pages URL
 fetch("https://sbuckius.github.io/art104-s2026-spaceship/humans.json")
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) throw new Error("Network response was not ok");
+    return res.json();
+  })
   .then(data => {
     humansData = data;
     createButtons();
@@ -50,29 +52,29 @@ fetch("https://sbuckius.github.io/art104-s2026-spaceship/humans.json")
 
 function createButtons() {
   const container = document.getElementById("buttons-container");
+  container.innerHTML = "";
+
   Object.keys(humansData).forEach(id => {
     const h = humansData[id];
     const btnWrapper = document.createElement("div");
     btnWrapper.className = "module";
 
-    // Apply desktop position if specified
-    if (h.top && h.left) {
-      btnWrapper.style.setProperty('--top', h.top);
-      btnWrapper.style.setProperty('--left', h.left);
+    // Apply desktop positions if provided
+    if(h.top && h.left){
       btnWrapper.style.top = h.top;
       btnWrapper.style.left = h.left;
     }
 
     const button = document.createElement("button");
     button.textContent = "human" + id;
-    button.onclick = () => openModal(id);
+    button.addEventListener("click", () => openModal(id));
 
     btnWrapper.appendChild(button);
     container.appendChild(btnWrapper);
   });
 }
 
-function openModal(id) {
+function openModal(id){
   const h = humansData[id];
   if(!h){ alert("Content not loaded yet."); return; }
 
@@ -88,9 +90,10 @@ function openModal(id) {
   document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal() {
+function closeModal(){
   document.getElementById("modal").style.display = "none";
 }
 </script>
+
 </body>
 </html>
