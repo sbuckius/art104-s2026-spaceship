@@ -60,7 +60,7 @@ const humansData = {
   "20": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human20p2"},"top":"70%","left":"55%"}
 };
 
-// Create buttons from embedded data
+// Create buttons
 function createButtons() {
   const container = document.getElementById("buttons-container");
   container.innerHTML = "";
@@ -74,7 +74,7 @@ function createButtons() {
       btnWrapper.style.left = h.left;
     }
     const button = document.createElement("button");
-    button.textContent = "human" + id;
+    button.textContent = "computer" + id; // Updated text here
     button.addEventListener("click", () => openModal(id));
     btnWrapper.appendChild(button);
     container.appendChild(btnWrapper);
