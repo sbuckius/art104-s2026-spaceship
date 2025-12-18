@@ -36,20 +36,31 @@ body { min-height:100vh; background-image: url("background_module01.png"); backg
 </div>
 
 <script>
-let humansData = {};
+// Fully self-contained humans data
+const humansData = {
+  "1": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human1p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human1p2"},"top":"10%","left":"10%"},
+  "2": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human2p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human2p2"},"top":"10%","left":"25%"},
+  "3": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human3p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human3p2"},"top":"10%","left":"40%"},
+  "4": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human4p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human4p2"},"top":"10%","left":"55%"},
+  "5": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human5p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human5p2"},"top":"25%","left":"10%"},
+  "6": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human6p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human6p2"},"top":"25%","left":"25%"},
+  "7": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human7p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human7p2"},"top":"25%","left":"40%"},
+  "8": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human8p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human8p2"},"top":"25%","left":"55%"},
+  "9": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human9p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human9p2"},"top":"40%","left":"10%"},
+  "10": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human10p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human10p2"},"top":"40%","left":"25%"},
+  "11": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human11p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human11p2"},"top":"40%","left":"40%"},
+  "12": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human12p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human12p2"},"top":"40%","left":"55%"},
+  "13": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human13p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human13p2"},"top":"55%","left":"10%"},
+  "14": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human14p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human14p2"},"top":"55%","left":"25%"},
+  "15": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human15p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human15p2"},"top":"55%","left":"40%"},
+  "16": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human16p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human16p2"},"top":"55%","left":"55%"},
+  "17": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human17p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human17p2"},"top":"70%","left":"10%"},
+  "18": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human18p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human18p2"},"top":"70%","left":"25%"},
+  "19": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human19p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human19p2"},"top":"70%","left":"40%"},
+  "20": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human20p2"},"top":"70%","left":"55%"}
+};
 
-// Fetch JSON from your GitHub Pages URL
-fetch("https://sbuckius.github.io/art104-s2026-spaceship/humans.json")
-  .then(res => {
-    if (!res.ok) throw new Error("Network response was not ok");
-    return res.json();
-  })
-  .then(data => {
-    humansData = data;
-    createButtons();
-  })
-  .catch(err => console.error("Error loading humans.json:", err));
-
+// Create buttons from embedded data
 function createButtons() {
   const container = document.getElementById("buttons-container");
   container.innerHTML = "";
@@ -58,22 +69,19 @@ function createButtons() {
     const h = humansData[id];
     const btnWrapper = document.createElement("div");
     btnWrapper.className = "module";
-
-    // Apply desktop positions if provided
     if(h.top && h.left){
       btnWrapper.style.top = h.top;
       btnWrapper.style.left = h.left;
     }
-
     const button = document.createElement("button");
     button.textContent = "human" + id;
     button.addEventListener("click", () => openModal(id));
-
     btnWrapper.appendChild(button);
     container.appendChild(btnWrapper);
   });
 }
 
+// Modal functions
 function openModal(id){
   const h = humansData[id];
   if(!h){ alert("Content not loaded yet."); return; }
@@ -86,13 +94,15 @@ function openModal(id){
       <div><sup>2</sup> <a href="${h.p2.footnote}" target="_blank" rel="noopener">Footnote 2 link</a></div>
     </div>
   `;
-
   document.getElementById("modal").style.display = "flex";
 }
 
 function closeModal(){
   document.getElementById("modal").style.display = "none";
 }
+
+// Initialize buttons
+createButtons();
 </script>
 
 </body>
