@@ -8,6 +8,21 @@
 * { box-sizing:border-box; margin:0; padding:0; font-family: system-ui,sans-serif; }
 body { min-height:100vh; background-image: url("background_module01.png"); background-size:cover; background-position:center; }
 
+.nav-btn {
+  position:fixed;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#1e90ff;
+  color:white;
+  border:none;
+  padding:0.5rem 1rem;
+  border-radius:4px;
+  font-size:0.9rem;
+  cursor:pointer;
+  z-index:1001;
+}
+
 .layer { display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; padding:1rem; min-height:100vh; position:relative; }
 
 .module button { width:100%; padding:0.45rem 0; font-size:0.7rem; background:#1e90ff; color:white; border:none; border-radius:4px; cursor:pointer; }
@@ -25,6 +40,9 @@ body { min-height:100vh; background-image: url("background_module01.png"); backg
 </style>
 </head>
 <body>
+
+<!-- Navigation button to Module 02 -->
+<button class="nav-btn" onclick="location.href='module02.html'">Go to Module 02</button>
 
 <div class="layer" id="buttons-container"></div>
 
@@ -74,7 +92,7 @@ function createButtons() {
       btnWrapper.style.left = h.left;
     }
     const button = document.createElement("button");
-    button.textContent = "computer" + id; // Updated text here
+    button.textContent = "computer" + id; 
     button.addEventListener("click", () => openModal(id));
     btnWrapper.appendChild(button);
     container.appendChild(btnWrapper);
