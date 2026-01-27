@@ -62,32 +62,357 @@ body { min-height:100vh; background-image: url("background_module01.png"); backg
 <script>
 // Data for computer buttons with images
 const computerData = {
-  "1": {"img":"images/computer1.png","p1":{"text":"Computer1 paragraph 1 text...","footnote":"https://example.com/computer1p1"},"p2":{"text":"Computer1 paragraph 2 text...","footnote":"https://example.com/computer1p2"},"top":"10%","left":"10%"},
-  "2": {"img":"images/computer2.png","p1":{"text":"Computer2 paragraph 1 text...","footnote":"https://example.com/computer2p1"},"p2":{"text":"Computer2 paragraph 2 text...","footnote":"https://example.com/computer2p2"},"top":"10%","left":"25%"},
-  "3": {"img":"images/computer3.png","p1":{"text":"Computer3 paragraph 1 text...","footnote":"https://example.com/computer3p1"},"p2":{"text":"Computer3 paragraph 2 text...","footnote":"https://example.com/computer3p2"},"top":"10%","left":"40%"},
-  "4": {"img":"images/computer4.png","p1":{"text":"Computer4 paragraph 1 text...","footnote":"https://example.com/computer4p1"},"p2":{"text":"Computer4 paragraph 2 text...","footnote":"https://example.com/computer4p2"},"top":"10%","left":"55%"},
-  "5": {"img":"images/computer5.png","p1":{"text":"Computer5 paragraph 1 text...","footnote":"https://example.com/computer5p1"},"p2":{"text":"Computer5 paragraph 2 text...","footnote":"https://example.com/computer5p2"},"top":"25%","left":"10%"},
-  "6": {"img":"images/computer6.png","p1":{"text":"Computer6 paragraph 1 text...","footnote":"https://example.com/computer6p1"},"p2":{"text":"Computer6 paragraph 2 text...","footnote":"https://example.com/computer6p2"},"top":"25%","left":"25%"},
-  "7": {"img":"images/computer7.png","p1":{"text":"Computer7 paragraph 1 text...","footnote":"https://example.com/computer7p1"},"p2":{"text":"Computer7 paragraph 2 text...","footnote":"https://example.com/computer7p2"},"top":"25%","left":"40%"},
-  "8": {"img":"images/computer8.png","p1":{"text":"Computer8 paragraph 1 text...","footnote":"https://example.com/computer8p1"},"p2":{"text":"Computer8 paragraph 2 text...","footnote":"https://example.com/computer8p2"},"top":"25%","left":"55%"},
-  "9": {"img":"images/computer9.png","p1":{"text":"Computer9 paragraph 1 text...","footnote":"https://example.com/computer9p1"},"p2":{"text":"Computer9 paragraph 2 text...","footnote":"https://example.com/computer9p2"},"top":"40%","left":"10%"},
-  "10": {"img":"images/computer10.png","p1":{"text":"Computer10 paragraph 1 text...","footnote":"https://example.com/computer10p1"},"p2":{"text":"Computer10 paragraph 2 text...","footnote":"https://example.com/computer10p2"},"top":"40%","left":"25%"},
-  "11": {"img":"images/computer11.png","p1":{"text":"Computer11 paragraph 1 text...","footnote":"https://example.com/computer11p1"},"p2":{"text":"Computer11 paragraph 2 text...","footnote":"https://example.com/computer11p2"},"top":"40%","left":"40%"},
-  "12": {"img":"images/computer12.png","p1":{"text":"Computer12 paragraph 1 text...","footnote":"https://example.com/computer12p1"},"p2":{"text":"Computer12 paragraph 2 text...","footnote":"https://example.com/computer12p2"},"top":"40%","left":"55%"},
-  "13": {"img":"images/computer13.png","p1":{"text":"Computer13 paragraph 1 text...","footnote":"https://example.com/computer13p1"},"p2":{"text":"Computer13 paragraph 2 text...","footnote":"https://example.com/computer13p2"},"top":"55%","left":"10%"},
-  "14": {"img":"images/computer14.png","p1":{"text":"Computer14 paragraph 1 text...","footnote":"https://example.com/computer14p1"},"p2":{"text":"Computer14 paragraph 2 text...","footnote":"https://example.com/computer14p2"},"top":"55%","left":"25%"},
-  "15": {"img":"images/computer15.png","p1":{"text":"Computer15 paragraph 1 text...","footnote":"https://example.com/computer15p1"},"p2":{"text":"Computer15 paragraph 2 text...","footnote":"https://example.com/computer15p2"},"top":"55%","left":"40%"},
-  "16": {"img":"images/computer16.png","p1":{"text":"Computer16 paragraph 1 text...","footnote":"https://example.com/computer16p1"},"p2":{"text":"Computer16 paragraph 2 text...","footnote":"https://example.com/computer16p2"},"top":"55%","left":"55%"},
-  "17": {"img":"images/computer17.png","p1":{"text":"Computer17 paragraph 1 text...","footnote":"https://example.com/computer17p1"},"p2":{"text":"Computer17 paragraph 2 text...","footnote":"https://example.com/computer17p2"},"top":"70%","left":"10%"},
-  "18": {"img":"images/computer18.png","p1":{"text":"Computer18 paragraph 1 text...","footnote":"https://example.com/computer18p1"},"p2":{"text":"Computer18 paragraph 2 text...","footnote":"https://example.com/computer18p2"},"top":"70%","left":"25%"},
-  "19": {"img":"images/computer19.png","p1":{"text":"Computer19 paragraph 1 text...","footnote":"https://example.com/computer19p1"},"p2":{"text":"Computer19 paragraph 2 text...","footnote":"https://example.com/computer19p2"},"top":"70%","left":"40%"},
-  "20": {"img":"images/computer20.png","p1":{"text":"Computer20 paragraph 1 text...","footnote":"https://example.com/computer20p1"},"p2":{"text":"Computer20 paragraph 2 text...","footnote":"https://example.com/computer20p2"},"top":"70%","left":"55%"},
-"21": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human20p2"},"top":"70%","left":"55%"},
-"22": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human20p2"},"top":"70%","left":"55%"},
-  "23": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human20p2"},"top":"70%","left":"55%"},
-  "24": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human20p2"},"top":"70%","left":"55%"},
-"25": {"p1":{"text":"My computer design is inspired by the science fiction short story text ...","footnote":"https://example.com/human20p1"},"p2":{"text":"My design is ...","footnote":"https://example.com/human20p2"},"top":"70%","left":"55%"}
+  "1": {
+    img: "images/computer1.png",
+    p1: {
+      text: "Computer1 paragraph 1 text...",
+      footnote: "https://example.com/computer1p1"
+    },
+    p2: {
+      text: "Computer1 paragraph 2 text...",
+      footnote: "https://example.com/computer1p2"
+    },
+    top: "10%",
+    left: "10%"
+  },
+
+  "2": {
+    img: "images/computer2.png",
+    p1: {
+      text: "Computer2 paragraph 1 text...",
+      footnote: "https://example.com/computer2p1"
+    },
+    p2: {
+      text: "Computer2 paragraph 2 text...",
+      footnote: "https://example.com/computer2p2"
+    },
+    top: "10%",
+    left: "25%"
+  },
+
+  "3": {
+    img: "images/computer3.png",
+    p1: {
+      text: "Computer3 paragraph 1 text...",
+      footnote: "https://example.com/computer3p1"
+    },
+    p2: {
+      text: "Computer3 paragraph 2 text...",
+      footnote: "https://example.com/computer3p2"
+    },
+    top: "10%",
+    left: "40%"
+  },
+
+  "4": {
+    img: "images/computer4.png",
+    p1: {
+      text: "Computer4 paragraph 1 text...",
+      footnote: "https://example.com/computer4p1"
+    },
+    p2: {
+      text: "Computer4 paragraph 2 text...",
+      footnote: "https://example.com/computer4p2"
+    },
+    top: "10%",
+    left: "55%"
+  },
+
+  "5": {
+    img: "images/computer5.png",
+    p1: {
+      text: "Computer5 paragraph 1 text...",
+      footnote: "https://example.com/computer5p1"
+    },
+    p2: {
+      text: "Computer5 paragraph 2 text...",
+      footnote: "https://example.com/computer5p2"
+    },
+    top: "25%",
+    left: "10%"
+  },
+
+  "6": {
+    img: "images/computer6.png",
+    p1: {
+      text: "Computer6 paragraph 1 text...",
+      footnote: "https://example.com/computer6p1"
+    },
+    p2: {
+      text: "Computer6 paragraph 2 text...",
+      footnote: "https://example.com/computer6p2"
+    },
+    top: "25%",
+    left: "25%"
+  },
+
+  "7": {
+    img: "images/computer7.png",
+    p1: {
+      text: "Computer7 paragraph 1 text...",
+      footnote: "https://example.com/computer7p1"
+    },
+    p2: {
+      text: "Computer7 paragraph 2 text...",
+      footnote: "https://example.com/computer7p2"
+    },
+    top: "25%",
+    left: "40%"
+  },
+
+  "8": {
+    img: "images/computer8.png",
+    p1: {
+      text: "Computer8 paragraph 1 text...",
+      footnote: "https://example.com/computer8p1"
+    },
+    p2: {
+      text: "Computer8 paragraph 2 text...",
+      footnote: "https://example.com/computer8p2"
+    },
+    top: "25%",
+    left: "55%"
+  },
+
+  "9": {
+    img: "images/computer9.png",
+    p1: {
+      text: "Computer9 paragraph 1 text...",
+      footnote: "https://example.com/computer9p1"
+    },
+    p2: {
+      text: "Computer9 paragraph 2 text...",
+      footnote: "https://example.com/computer9p2"
+    },
+    top: "40%",
+    left: "10%"
+  },
+
+  "10": {
+    img: "images/computer10.png",
+    p1: {
+      text: "Computer10 paragraph 1 text...",
+      footnote: "https://example.com/computer10p1"
+    },
+    p2: {
+      text: "Computer10 paragraph 2 text...",
+      footnote: "https://example.com/computer10p2"
+    },
+    top: "40%",
+    left: "25%"
+  },
+
+  "11": {
+    img: "images/computer11.png",
+    p1: {
+      text: "Computer11 paragraph 1 text...",
+      footnote: "https://example.com/computer11p1"
+    },
+    p2: {
+      text: "Computer11 paragraph 2 text...",
+      footnote: "https://example.com/computer11p2"
+    },
+    top: "40%",
+    left: "40%"
+  },
+
+  "12": {
+    img: "images/computer12.png",
+    p1: {
+      text: "Computer12 paragraph 1 text...",
+      footnote: "https://example.com/computer12p1"
+    },
+    p2: {
+      text: "Computer12 paragraph 2 text...",
+      footnote: "https://example.com/computer12p2"
+    },
+    top: "40%",
+    left: "55%"
+  },
+
+  "13": {
+    img: "images/computer13.png",
+    p1: {
+      text: "Computer13 paragraph 1 text...",
+      footnote: "https://example.com/computer13p1"
+    },
+    p2: {
+      text: "Computer13 paragraph 2 text...",
+      footnote: "https://example.com/computer13p2"
+    },
+    top: "55%",
+    left: "10%"
+  },
+
+  "14": {
+    img: "images/computer14.png",
+    p1: {
+      text: "Computer14 paragraph 1 text...",
+      footnote: "https://example.com/computer14p1"
+    },
+    p2: {
+      text: "Computer14 paragraph 2 text...",
+      footnote: "https://example.com/computer14p2"
+    },
+    top: "55%",
+    left: "25%"
+  },
+
+  "15": {
+    img: "images/computer15.png",
+    p1: {
+      text: "Computer15 paragraph 1 text...",
+      footnote: "https://example.com/computer15p1"
+    },
+    p2: {
+      text: "Computer15 paragraph 2 text...",
+      footnote: "https://example.com/computer15p2"
+    },
+    top: "55%",
+    left: "40%"
+  },
+
+  "16": {
+    img: "images/computer16.png",
+    p1: {
+      text: "Computer16 paragraph 1 text...",
+      footnote: "https://example.com/computer16p1"
+    },
+    p2: {
+      text: "Computer16 paragraph 2 text...",
+      footnote: "https://example.com/computer16p2"
+    },
+    top: "55%",
+    left: "55%"
+  },
+
+  "17": {
+    img: "images/computer17.png",
+    p1: {
+      text: "Computer17 paragraph 1 text...",
+      footnote: "https://example.com/computer17p1"
+    },
+    p2: {
+      text: "Computer17 paragraph 2 text...",
+      footnote: "https://example.com/computer17p2"
+    },
+    top: "70%",
+    left: "10%"
+  },
+
+  "18": {
+    img: "images/computer18.png",
+    p1: {
+      text: "Computer18 paragraph 1 text...",
+      footnote: "https://example.com/computer18p1"
+    },
+    p2: {
+      text: "Computer18 paragraph 2 text...",
+      footnote: "https://example.com/computer18p2"
+    },
+    top: "70%",
+    left: "25%"
+  },
+
+  "19": {
+    img: "images/computer19.png",
+    p1: {
+      text: "Computer19 paragraph 1 text...",
+      footnote: "https://example.com/computer19p1"
+    },
+    p2: {
+      text: "Computer19 paragraph 2 text...",
+      footnote: "https://example.com/computer19p2"
+    },
+    top: "70%",
+    left: "40%"
+  },
+
+  "20": {
+    img: "images/computer20.png",
+    p1: {
+      text: "Computer20 paragraph 1 text...",
+      footnote: "https://example.com/computer20p1"
+    },
+    p2: {
+      text: "Computer20 paragraph 2 text...",
+      footnote: "https://example.com/computer20p2"
+    },
+    top: "70%",
+    left: "55%"
+  },
+
+  "21": {
+    img: "images/computer21.png",
+    p1: {
+      text: "Computer21 paragraph 1 text...",
+      footnote: "https://example.com/computer21p1"
+    },
+    p2: {
+      text: "Computer21 paragraph 2 text...",
+      footnote: "https://example.com/computer21p2"
+    },
+    top: "85%",
+    left: "10%"
+  },
+
+  "22": {
+    img: "images/computer22.png",
+    p1: {
+      text: "Computer22 paragraph 1 text...",
+      footnote: "https://example.com/computer22p1"
+    },
+    p2: {
+      text: "Computer22 paragraph 2 text...",
+      footnote: "https://example.com/computer22p2"
+    },
+    top: "85%",
+    left: "25%"
+  },
+
+  "23": {
+    img: "images/computer23.png",
+    p1: {
+      text: "Computer23 paragraph 1 text...",
+      footnote: "https://example.com/computer23p1"
+    },
+    p2: {
+      text: "Computer23 paragraph 2 text...",
+      footnote: "https://example.com/computer23p2"
+    },
+    top: "85%",
+    left: "40%"
+  },
+
+  "24": {
+    img: "images/computer24.png",
+    p1: {
+      text: "Computer24 paragraph 1 text...",
+      footnote: "https://example.com/computer24p1"
+    },
+    p2: {
+      text: "Computer24 paragraph 2 text...",
+      footnote: "https://example.com/computer24p2"
+    },
+    top: "85%",
+    left: "55%"
+  },
+
+  "25": {
+    img: "images/computer25.png",
+    p1: {
+      text: "Computer25 paragraph 1 text...",
+      footnote: "https://example.com/computer25p1"
+    },
+    p2: {
+      text: "Computer25 paragraph 2 text...",
+      footnote: "https://example.com/computer25p2"
+    },
+    top: "85%",
+    left: "70%"
+  }
 };
+
 
 // Create buttons with images
 function createButtons() {
