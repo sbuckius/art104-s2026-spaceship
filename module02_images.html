@@ -34,32 +34,37 @@ body {
 /* Grid Layout */
 .layer {
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:1rem;
-  padding:1rem;
+  grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+  gap:1.5rem;
+  padding:2rem;
   min-height:100vh;
 }
 
+/* Human Module */
 .module {
-  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
+/* Images */
 .module img {
-  width:70px;
-  height:70px;
+  width:100px;
+  height:100px;
   object-fit:cover;
-  margin-bottom:0.25rem;
-  border-radius:4px;
+  margin-bottom:8px;
+  border-radius:8px;
 }
 
+/* Buttons */
 .module button {
-  width:100%;
-  padding:0.45rem 0;
-  font-size:0.7rem;
+  width:100px;
+  padding:6px 0;
+  font-size:0.8rem;
   background:#1e90ff;
   color:white;
   border:none;
-  border-radius:4px;
+  border-radius:8px;
   cursor:pointer;
 }
 
@@ -79,12 +84,12 @@ body {
   background:#111;
   color:#fff;
   width:100%;
-  max-width:480px;
+  max-width:520px;
   max-height:90vh;
   overflow-y:auto;
-  padding:1.25rem;
-  border-radius:8px;
-  text-align:center;
+  padding:1.5rem;
+  border-radius:10px;
+  text-align:left;
 }
 
 .modal-content img {
@@ -96,33 +101,19 @@ body {
 
 .modal-content p {
   margin-bottom:1rem;
-  line-height:1.45;
-  font-size:0.9rem;
-}
-
-.footnotes {
-  border-top:1px solid #333;
-  margin-top:1rem;
-  padding-top:0.75rem;
-  font-size:0.75rem;
-  color:#ccc;
-  text-align:left;
-}
-
-.footnotes a {
-  color:#1e90ff;
-  text-decoration:none;
+  line-height:1.5;
+  font-size:0.95rem;
 }
 
 .close {
   background:#1e90ff;
   color:white;
   border:none;
-  padding:0.5rem;
+  padding:0.6rem;
   width:100%;
-  margin-top:0.5rem;
-  border-radius:4px;
-  font-size:0.8rem;
+  margin-top:1rem;
+  border-radius:6px;
+  font-size:0.85rem;
   cursor:pointer;
 }
 </style>
@@ -137,7 +128,7 @@ Go to Module 03
 <div class="layer" id="buttons-container"></div>
 
 <div class="modal" id="modal">
-  <div class="modal-content" id="modal-content">
+  <div class="modal-content">
     <img id="modal-image" src="" alt="">
     <div id="modal-text"></div>
     <button class="close" onclick="closeModal()">Close</button>
@@ -147,55 +138,54 @@ Go to Module 03
 <script>
 
 /* =========================
-   HUMAN DATA (7 ONLY)
+   HUMAN DATA (7 TOTAL)
    ========================= */
 
 const humanData = {
 
   "1": {
     img: "images/human1.png",
-    p1: { text: "Human 1 paragraph one text." }
+    p1: { text: "Human 1 text goes here." }
   },
 
   "2": {
     img: "images/human2.png",
-    p1: { 
-      text: "Human 2 paragraph one text.",
-      footnote: "https://example.com/source1"
-    },
-    p2: { 
-      text: "Human 2 paragraph two text.",
-      footnote: "https://example.com/source2"
-    }
+    p1: { text: "Human 2 text goes here." }
   },
 
   "3": {
     img: "images/human3.png",
-    p1: { text: "Human 3 paragraph one text." },
-    p2: { text: "Human 3 paragraph two text." }
+    p1: { text: "Human 3 text goes here." }
   },
 
   "4": {
     img: "images/human4.png",
-    p1: { 
-      text: "Human 4 paragraph one text.",
-      footnote: "https://example.com/source4"
-    }
+    p1: { text: "Human 4 text goes here." }
   },
 
   "5": {
     img: "images/human5.png",
-    p1: { text: "Human 5 paragraph one text." }
+    p1: { text: "Human 5 text goes here." }
   },
 
   "6": {
-    img: "images/human6.png",
-    p1: { text: "Human 6 paragraph one text." }
+    img: "images/Human6.png",
+    p1: { 
+      text: `This design is a concept for a future where humans are monitored by AI through a brain chip, a watch, and an exoskeleton. 
+
+The Brain Chip: It sits inside your head and tracks how much you rely on AI to think. 
+
+The Watch: This shows your "AI Score." If you use AI too much, your score goes up, and it becomes harder to get a job. You can also scan other people’s watches to see their scores. 
+
+The Exoskeleton: This is a suit that "fixes" your body. If you make a mistake while moving, the suit automatically moves your arms or legs to do it the "right" way.` 
+    }
   },
 
   "7": {
-    img: "images/human7.png",
-    p1: { text: "Human 7 paragraph one text." }
+    img: "images/Human7.png",
+    p1: { 
+      text: `Humanized Roomba: a cleaning robot that has more functions than intended. With emotional output and human personality traits, this roomba can become more than just a tool. Integrating human functions into technology, the Humanized Roomba becomes an entity that plays with the idea of giving robotics a personality—free thinking.` 
+    }
   }
 
 };
@@ -239,41 +229,13 @@ function openModal(id) {
   const h = humanData[id];
   if (!h) return;
 
-  const modalImg = document.getElementById("modal-image");
-  modalImg.src = h.img;
-  modalImg.alt = "human" + id;
+  document.getElementById("modal-image").src = h.img;
+  document.getElementById("modal-image").alt = "human" + id;
 
   let contentHTML = "";
-  let footnotesHTML = "";
-  let footnoteCount = 1;
 
-  function addParagraph(paragraph) {
-    if (!paragraph) return;
-
-    let sup = "";
-
-    if (paragraph.footnote) {
-      sup = ` <sup>${footnoteCount}</sup>`;
-      footnotesHTML += `
-        <div>
-          <sup>${footnoteCount}</sup>
-          <a href="${paragraph.footnote}" target="_blank" rel="noopener">
-            Source link
-          </a>
-        </div>
-      `;
-      footnoteCount++;
-    }
-
-    contentHTML += `<p>${paragraph.text}${sup}</p>`;
-  }
-
-  addParagraph(h.p1);
-  addParagraph(h.p2);
-
-  if (footnotesHTML) {
-    contentHTML += `<div class="footnotes">${footnotesHTML}</div>`;
-  }
+  if (h.p1) contentHTML += `<p>${h.p1.text.replace(/\n/g, "<br><br>")}</p>`;
+  if (h.p2) contentHTML += `<p>${h.p2.text.replace(/\n/g, "<br><br>")}</p>`;
 
   document.getElementById("modal-text").innerHTML = contentHTML;
   document.getElementById("modal").style.display = "flex";
@@ -288,21 +250,16 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-/* Close when clicking outside */
 document.getElementById("modal").addEventListener("click", function(e) {
   if (e.target === this) closeModal();
 });
 
-/* Close on ESC key */
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") closeModal();
 });
 
 
-/* =========================
-   INIT
-   ========================= */
-
+/* INIT */
 createButtons();
 
 </script>
