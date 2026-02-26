@@ -31,11 +31,9 @@ body {
   z-index: 1001;
 }
 
-.nav-btn:hover {
-  background:#6d0000;
-}
+.nav-btn:hover { background:#6d0000; }
 
-/* Main Layout */
+/* Layout */
 .layer {
   display:flex;
   flex-direction:column;
@@ -57,7 +55,6 @@ body {
   align-items:center;
 }
 
-/* Larger Images */
 .module img {
   width:160px;
   height:160px;
@@ -66,12 +63,11 @@ body {
   border-radius:12px;
 }
 
-/* Deep Red Buttons */
 .module button {
   width:160px;
   padding:8px 0;
   font-size:1rem;
-  background:#8B0000;       /* deep red */
+  background:#8B0000;
   color:white;
   border:none;
   border-radius:10px;
@@ -79,16 +75,14 @@ body {
   transition: background 0.3s ease;
 }
 
-.module button:hover {
-  background:#6d0000;       /* darker red on hover */
-}
+.module button:hover { background:#6d0000; }
 
 /* Modal */
 .modal {
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,0.85);
   align-items:center;
   justify-content:center;
   z-index:1000;
@@ -99,12 +93,17 @@ body {
   background:#111;
   color:#fff;
   width:100%;
-  max-width:600px;
+  max-width:700px;
   max-height:90vh;
   overflow-y:auto;
   padding:2rem;
   border-radius:14px;
   text-align:left;
+}
+
+.modal-content h2 {
+  margin-bottom:1rem;
+  color:#fff;
 }
 
 .modal-content img {
@@ -129,12 +128,10 @@ body {
   border-radius:8px;
   font-size:1rem;
   cursor:pointer;
-  transition: background 0.3s ease;
 }
 
-.close:hover {
-  background:#6d0000;
-}
+.close:hover { background:#6d0000; }
+
 </style>
 </head>
 
@@ -151,6 +148,7 @@ Go to Module 03
 
 <div class="modal" id="modal">
   <div class="modal-content">
+    <h2 id="modal-title"></h2>
     <img id="modal-image" src="" alt="">
     <div id="modal-text"></div>
     <button class="close" onclick="closeModal()">Close</button>
@@ -161,79 +159,89 @@ Go to Module 03
 
 const humanData = {
 
-  "1": { img: "images/human1.png", p1: { text: "Human 1 text goes here." }},
-  "2": { img: "images/human2.png", p1: { text: "Human 2 text goes here." }},
-  "3": { img: "images/human3.png", p1: { text: "Human 3 text goes here." }},
-  "4": { img: "images/human4.png", p1: { text: "Human 4 text goes here." }},
-  "5": { img: "images/human5.png", p1: { text: "Human 5 text goes here." }},
+  "1": {
+    img: "images/human1.png",
+    title: "Be Connected",
+    text: `The conflict between human cognition and continuous connectivity is explored in this piece of art. The artwork depicts the human body as both a biological organ and a node inside a data system by fusing networked interfaces with organic anatomy.
+
+A human is positioned beneath a curved screen at the bottom, and there is a direct physical connection between the human and the machine via thick cables that wrap around the head and stretch upward into the display. Like a control panel, the light screen arcs, implying monitoring, submersion, and reliance on digital infrastructure. The image is linked to more general discussions about device addiction, data extraction, and the urge to stay online by the strong red writing that reads, "BE CONNECTED," echoing the advertising language of tech companies.
+
+The striking red writing challenges the audience, inviting deeper engagement with the work, moving it from observation to confrontation. What happens to the barriers between your mind and the network when connection turns into an order instead of an option?`
+  },
+
+  "2": {
+    img: "images/human2.png",
+    title: "Hey Friend",
+    text: `Our speculative artpiece, Hey Friend, is a virtual reality experience that looks into themes of identity, human interaction, and artificial intelligence. It investigates the idea of human identity through the customization of virtual avatars and the continuous evolution of AI’s intelligence and adaptation of humanistic characteristics. This prompted the thought of how you would differentiate between AI and humans in a virtual environment.
+
+The project will take place in virtual reality, functioning as an online game/experience where you’ll be placed into a fully explorable virtual recreation of real-world locations. Inside the world, you’ll be surrounded by different avatars, created and controlled by people or AI. The avatars would have limitless customizable options, allowing full creative freedom. But this also applies to the AI that essentially becomes advanced NPCs pretending to be human. There isn’t necessarily a goal or win condition, but once you are finished playing, you’ll be told how many humans and AI you interacted with.
+
+Hey Friend asks people to consider what makes a human, human. With AI constantly evolving and being trained to become more human-like, could you tell the difference if it were standing directly in front of you?`
+  },
+
+  "3": { img: "images/human3.png", title: "Title", text: "Add your Human 3 text here." },
+  "4": { img: "images/human4.png", title: "Title", text: "Add your Human 4 text here." },
+
+  "5": {
+    img: "images/human5.png",
+    title: "Title",
+    text: `The digital illustration was made to explore the mental impacts that social media has on women and their body image. The piece also explores how vulnerable it feels when constantly exposing yourself on social media.
+
+The design of the illustration was to showcase the effects of social media it had on women by displaying the phone cameras focusing on certain parts of the body — from the face, chest area, and the stomach. With the phone screens the inside of the body is viewable, showcasing how exposing it is to constantly post yourself on the internet. There are also distinguishable social media icons like the followers and like button to show what many young people seek after when posting on social media. This is further cemented by the woman directly looking at the like button, showcasing where her attention is at.
+
+This begs the question: what parts are we exposing ourselves to when we post on social media?`
+  },
 
   "6": {
-    img: "images/human6.png",
-    p1: { 
-      text: `This design is a concept for a future where humans are monitored by AI through a brain chip, a watch, and an exoskeleton.
+    img: "images/Human6.png",
+    title: "AI Regulator",
+    text: `This design is a concept for a future where humans are monitored by AI through a brain chip, a watch, and an exoskeleton.
 
 The Brain Chip: It sits inside your head and tracks how much you rely on AI to think.
 
 The Watch: This shows your "AI Score." If you use AI too much, your score goes up, and it becomes harder to get a job. You can also scan other people’s watches to see their scores.
 
-The Exoskeleton: This is a suit that "fixes" your body. If you make a mistake while moving, the suit automatically moves your arms or legs to do it the "right" way.` 
-    }
+The Exoskeleton: This is a suit that "fixes" your body. If you make a mistake while moving, the suit automatically moves your arms or legs to do it the "right" way.`
   },
 
   "7": {
-    img: "images/human7.png",
-    p1: { 
-      text: `Humanized Roomba: a cleaning robot that has more functions than intended. With emotional output and human personality traits, this roomba can become more than just a tool. Integrating human functions into technology, the Humanized Roomba becomes an entity that plays with the idea of giving robotics a personality—free thinking.` 
-    }
+    img: "images/Human7.png",
+    title: "Humanized Roomba",
+    text: `Humanized Roomba: a cleaning robot that has more functions than intended. With emotional output and human personality traits, this roomba can become more than just a tool. Integrating human functions into technology, the Humanized Roomba becomes an entity that plays with the idea of giving robotics a personality—free thinking.`
   }
 
 };
 
 
 function createButtons() {
-
   const topRow = document.getElementById("top-row");
   const bottomRow = document.getElementById("bottom-row");
 
   Object.keys(humanData).forEach((id, index) => {
-
     const h = humanData[id];
     const wrapper = document.createElement("div");
     wrapper.className = "module";
 
     const img = document.createElement("img");
     img.src = h.img;
-    img.alt = "human" + id;
     wrapper.appendChild(img);
 
     const button = document.createElement("button");
     button.textContent = "human" + id;
-    button.addEventListener("click", () => openModal(id));
+    button.onclick = () => openModal(id);
     wrapper.appendChild(button);
 
-    if (index < 4) {
-      topRow.appendChild(wrapper);
-    } else {
-      bottomRow.appendChild(wrapper);
-    }
-
+    if (index < 4) topRow.appendChild(wrapper);
+    else bottomRow.appendChild(wrapper);
   });
 }
 
-
 function openModal(id) {
-
   const h = humanData[id];
-  if (!h) return;
-
+  document.getElementById("modal-title").textContent = h.title;
   document.getElementById("modal-image").src = h.img;
-  document.getElementById("modal-image").alt = "human" + id;
-
-  let contentHTML = "";
-  if (h.p1) contentHTML += `<p>${h.p1.text.replace(/\n/g, "<br><br>")}</p>`;
-  if (h.p2) contentHTML += `<p>${h.p2.text.replace(/\n/g, "<br><br>")}</p>`;
-
-  document.getElementById("modal-text").innerHTML = contentHTML;
+  document.getElementById("modal-text").innerHTML =
+    "<p>" + h.text.replace(/\n/g, "<br><br>") + "</p>";
   document.getElementById("modal").style.display = "flex";
 }
 
@@ -241,12 +249,12 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-document.getElementById("modal").addEventListener("click", function(e) {
-  if (e.target === this) closeModal();
-});
+document.getElementById("modal").onclick = function(e){
+  if(e.target === this) closeModal();
+};
 
-document.addEventListener("keydown", function(e) {
-  if (e.key === "Escape") closeModal();
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape") closeModal();
 });
 
 createButtons();
