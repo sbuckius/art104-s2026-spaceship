@@ -4,10 +4,18 @@
 <meta charset="UTF-8">
 <title>Module 02</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-* { box-sizing:border-box; margin:0; padding:0; font-family: system-ui,sans-serif; }
-body { min-height:100vh; background-image: url("background_module02.png"); background-size:cover; background-position:center; }
 
+<style>
+* { box-sizing:border-box; margin:0; padding:0; font-family: system-ui, sans-serif; }
+
+body {
+  min-height:100vh;
+  background-image: url("background_module02.png");
+  background-size:cover;
+  background-position:center;
+}
+
+/* Navigation Button */
 .nav-btn {
   position: fixed;
   top: 10px;
@@ -23,111 +31,280 @@ body { min-height:100vh; background-image: url("background_module02.png"); backg
   z-index: 1001;
 }
 
-.layer { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; padding:1rem; min-height:100vh; position:relative; }
-
-.module { position: relative; text-align: center; }
-
-.module img { width: 70px; height: 70px; object-fit: cover; margin-bottom: 0.25rem; border-radius: 4px; }
-
-.module button { width:100%; padding:0.45rem 0; font-size:0.7rem; background:#1e90ff; color:white; border:none; border-radius:4px; cursor:pointer; }
-
-@media(min-width:768px) {
-  .module { position:absolute; width:70px; }
+/* Grid Layout */
+.layer {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1rem;
+  padding:1rem;
+  min-height:100vh;
 }
 
-.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); align-items:center; justify-content:center; z-index:1000; padding:1rem; }
-.modal-content { background:#111; color:#fff; width:100%; max-width:480px; max-height:90vh; overflow-y:auto; padding:1.25rem; border-radius:8px; text-align:center; }
-.modal-content img { max-width:100%; height:auto; margin-bottom:1rem; border-radius:8px; }
-.modal-content p { margin-bottom:1rem; line-height:1.45; font-size:0.9rem; }
-.footnotes { border-top:1px solid #333; margin-top:1rem; padding-top:0.75rem; font-size:0.75rem; color:#ccc; text-align:left; }
-.footnotes a { color:#1e90ff; text-decoration:none; }
-.close { background:#1e90ff; color:white; border:none; padding:0.5rem; width:100%; margin-top:0.5rem; border-radius:4px; font-size:0.8rem; cursor:pointer; }
+.module {
+  text-align:center;
+}
+
+.module img {
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  margin-bottom:0.25rem;
+  border-radius:4px;
+}
+
+.module button {
+  width:100%;
+  padding:0.45rem 0;
+  font-size:0.7rem;
+  background:#1e90ff;
+  color:white;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+/* Modal */
+.modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:1rem;
+}
+
+.modal-content {
+  background:#111;
+  color:#fff;
+  width:100%;
+  max-width:480px;
+  max-height:90vh;
+  overflow-y:auto;
+  padding:1.25rem;
+  border-radius:8px;
+  text-align:center;
+}
+
+.modal-content img {
+  max-width:100%;
+  height:auto;
+  margin-bottom:1rem;
+  border-radius:8px;
+}
+
+.modal-content p {
+  margin-bottom:1rem;
+  line-height:1.45;
+  font-size:0.9rem;
+}
+
+.footnotes {
+  border-top:1px solid #333;
+  margin-top:1rem;
+  padding-top:0.75rem;
+  font-size:0.75rem;
+  color:#ccc;
+  text-align:left;
+}
+
+.footnotes a {
+  color:#1e90ff;
+  text-decoration:none;
+}
+
+.close {
+  background:#1e90ff;
+  color:white;
+  border:none;
+  padding:0.5rem;
+  width:100%;
+  margin-top:0.5rem;
+  border-radius:4px;
+  font-size:0.8rem;
+  cursor:pointer;
+}
 </style>
 </head>
+
 <body>
 
-<!-- Navigation button to Module 03 -->
-<button class="nav-btn" onclick="location.href='module03_images.html'">Go to Module 03</button>
+<button class="nav-btn" onclick="location.href='module03_images.html'">
+Go to Module 03
+</button>
 
 <div class="layer" id="buttons-container"></div>
 
 <div class="modal" id="modal">
-  <div class="modal-content">
-    <img id="modal-image" src="" alt=""/>
+  <div class="modal-content" id="modal-content">
+    <img id="modal-image" src="" alt="">
     <div id="modal-text"></div>
     <button class="close" onclick="closeModal()">Close</button>
   </div>
 </div>
 
 <script>
-// Data for avatar buttons with images
-const avatarData = {
-  "1": {"img":"images/human1.png","p1":{"text":"Humanized Roomba: a cleaning robot that has more functions than intended. With emotional output and human personality traits, this roomba can become more than just a tool. Integrating human functions into technology, the Humanized Roomba becomes an entity that plays with the idea of giving robotics a personality–free thinking."}},
-  "2": {"img":"images/human2.png","p1":{"text":"Avatar2 paragraph 1 text...","footnote":"https://example.com/avatar2p1"},"p2":{"text":"Avatar2 paragraph 2 text...","footnote":"https://example.com/avatar2p2"},"top":"10%","left":"25%"},
-  "3": {"img":"images/human3.png","p1":{"text":"Avatar3 paragraph 1 text...","footnote":"https://example.com/avatar3p1"},"p2":{"text":"Avatar3 paragraph 2 text...","footnote":"https://example.com/avatar3p2"},"top":"10%","left":"40%"},
-  "4": {"img":"images/human4.png","p1":{"text":"Avatar4 paragraph 1 text...","footnote":"https://example.com/avatar4p1"},"p2":{"text":"Avatar4 paragraph 2 text...","footnote":"https://example.com/avatar4p2"},"top":"10%","left":"55%"},
-  "5": {"img":"images/human5.png","p1":{"text":"Avatar5 paragraph 1 text...","footnote":"https://example.com/avatar5p1"},"p2":{"text":"Avatar5 paragraph 2 text...","footnote":"https://example.com/avatar5p2"},"top":"25%","left":"10%"},
-  "6": {"img":"images/human6.png","p1":{"text":"Avatar6 paragraph 1 text...","footnote":"https://example.com/avatar6p1"},"p2":{"text":"Avatar6 paragraph 2 text...","footnote":"https://example.com/avatar6p2"},"top":"25%","left":"25%"},
-  "7": {"img":"images/human7.png","p1":{"text":"Humanized Roomba: a cleaning robot that has more functions than intended. With emotional output and human personality traits, this roomba can become more than just a tool. Integrating human functions into technology, the Humanized Roomba becomes an entity that plays with the idea of giving robotics a personality–free thinking."}}
+
+/* =========================
+   HUMAN DATA (7 ONLY)
+   ========================= */
+
+const humanData = {
+
+  "1": {
+    img: "images/human1.png",
+    p1: { text: "Human 1 paragraph one text." }
+  },
+
+  "2": {
+    img: "images/human2.png",
+    p1: { 
+      text: "Human 2 paragraph one text.",
+      footnote: "https://example.com/source1"
+    },
+    p2: { 
+      text: "Human 2 paragraph two text.",
+      footnote: "https://example.com/source2"
+    }
+  },
+
+  "3": {
+    img: "images/human3.png",
+    p1: { text: "Human 3 paragraph one text." },
+    p2: { text: "Human 3 paragraph two text." }
+  },
+
+  "4": {
+    img: "images/human4.png",
+    p1: { 
+      text: "Human 4 paragraph one text.",
+      footnote: "https://example.com/source4"
+    }
+  },
+
+  "5": {
+    img: "images/human5.png",
+    p1: { text: "Human 5 paragraph one text." }
+  },
+
+  "6": {
+    img: "images/human6.png",
+    p1: { text: "Human 6 paragraph one text." }
+  },
+
+  "7": {
+    img: "images/human7.png",
+    p1: { text: "Human 7 paragraph one text." }
+  }
+
 };
 
-// Create buttons with images
+
+/* =========================
+   CREATE BUTTONS
+   ========================= */
+
 function createButtons() {
   const container = document.getElementById("buttons-container");
   container.innerHTML = "";
 
-  Object.keys(avatarData).forEach(id => {
-    const h = avatarData[id];
-    const btnWrapper = document.createElement("div");
-    btnWrapper.className = "module";
-    if(h.top && h.left){
-      btnWrapper.style.top = h.top;
-      btnWrapper.style.left = h.left;
-    }
+  Object.keys(humanData).forEach(id => {
+    const h = humanData[id];
 
-    // Small image above button
+    const wrapper = document.createElement("div");
+    wrapper.className = "module";
+
     const img = document.createElement("img");
     img.src = h.img;
     img.alt = "human" + id;
-    btnWrapper.appendChild(img);
+    wrapper.appendChild(img);
 
-    // Button
     const button = document.createElement("button");
-    button.textContent = "human" + id; 
+    button.textContent = "human" + id;
     button.addEventListener("click", () => openModal(id));
-    btnWrapper.appendChild(button);
+    wrapper.appendChild(button);
 
-    container.appendChild(btnWrapper);
+    container.appendChild(wrapper);
   });
 }
 
-// Modal functions
-function openModal(id){
-  const h = avatarData[id];
-  if(!h){ alert("Content not loaded yet."); return; }
 
-  // Set modal image
+/* =========================
+   OPEN MODAL
+   ========================= */
+
+function openModal(id) {
+
+  const h = humanData[id];
+  if (!h) return;
+
   const modalImg = document.getElementById("modal-image");
   modalImg.src = h.img;
   modalImg.alt = "human" + id;
 
-  document.getElementById("modal-text").innerHTML = `
-    <p>${h.p1.text} <sup>1</sup></p>
-    <p>${h.p2.text} <sup>2</sup></p>
-    <div class="footnotes">
-      <div><sup>1</sup> <a href="${h.p1.footnote}" target="_blank" rel="noopener">Footnote 1 link</a></div>
-      <div><sup>2</sup> <a href="${h.p2.footnote}" target="_blank" rel="noopener">Footnote 2 link</a></div>
-    </div>
-  `;
+  let contentHTML = "";
+  let footnotesHTML = "";
+  let footnoteCount = 1;
+
+  function addParagraph(paragraph) {
+    if (!paragraph) return;
+
+    let sup = "";
+
+    if (paragraph.footnote) {
+      sup = ` <sup>${footnoteCount}</sup>`;
+      footnotesHTML += `
+        <div>
+          <sup>${footnoteCount}</sup>
+          <a href="${paragraph.footnote}" target="_blank" rel="noopener">
+            Source link
+          </a>
+        </div>
+      `;
+      footnoteCount++;
+    }
+
+    contentHTML += `<p>${paragraph.text}${sup}</p>`;
+  }
+
+  addParagraph(h.p1);
+  addParagraph(h.p2);
+
+  if (footnotesHTML) {
+    contentHTML += `<div class="footnotes">${footnotesHTML}</div>`;
+  }
+
+  document.getElementById("modal-text").innerHTML = contentHTML;
   document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal(){
+
+/* =========================
+   CLOSE MODAL
+   ========================= */
+
+function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-// Initialize buttons
+/* Close when clicking outside */
+document.getElementById("modal").addEventListener("click", function(e) {
+  if (e.target === this) closeModal();
+});
+
+/* Close on ESC key */
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeModal();
+});
+
+
+/* =========================
+   INIT
+   ========================= */
+
 createButtons();
+
 </script>
 
 </body>
