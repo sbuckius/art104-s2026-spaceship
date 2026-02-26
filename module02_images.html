@@ -88,12 +88,12 @@ function createButtons() {
     // Small image above button
     const img = document.createElement("img");
     img.src = h.img;
-    img.alt = "avatar" + id;
+    img.alt = "human" + id;
     btnWrapper.appendChild(img);
 
     // Button
     const button = document.createElement("button");
-    button.textContent = "avatar" + id; 
+    button.textContent = "human" + id; 
     button.addEventListener("click", () => openModal(id));
     btnWrapper.appendChild(button);
 
@@ -109,7 +109,7 @@ function openModal(id){
   // Set modal image
   const modalImg = document.getElementById("modal-image");
   modalImg.src = h.img;
-  modalImg.alt = "avatar" + id;
+  modalImg.alt = "human" + id;
 
   document.getElementById("modal-text").innerHTML = `
     <p>${h.p1.text} <sup>1</sup></p>
