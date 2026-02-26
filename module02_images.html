@@ -18,54 +18,69 @@ body {
 /* Navigation Button */
 .nav-btn {
   position: fixed;
-  top: 10px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
-  background: #1e90ff;
+  background: #8B0000;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
   z-index: 1001;
 }
 
-/* Grid Layout */
-.layer {
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
-  gap:1.5rem;
-  padding:2rem;
-  min-height:100vh;
+.nav-btn:hover {
+  background:#6d0000;
 }
 
-/* Human Module */
+/* Main Layout */
+.layer {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3rem;
+  padding-top:100px;
+}
+
+.row {
+  display:flex;
+  gap:3rem;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
 .module {
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
-/* Images */
+/* Larger Images */
 .module img {
-  width:100px;
-  height:100px;
+  width:160px;
+  height:160px;
   object-fit:cover;
-  margin-bottom:8px;
-  border-radius:8px;
+  margin-bottom:12px;
+  border-radius:12px;
 }
 
-/* Buttons */
+/* Deep Red Buttons */
 .module button {
-  width:100px;
-  padding:6px 0;
-  font-size:0.8rem;
-  background:#1e90ff;
+  width:160px;
+  padding:8px 0;
+  font-size:1rem;
+  background:#8B0000;       /* deep red */
   color:white;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   cursor:pointer;
+  transition: background 0.3s ease;
+}
+
+.module button:hover {
+  background:#6d0000;       /* darker red on hover */
 }
 
 /* Modal */
@@ -73,7 +88,7 @@ body {
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.75);
+  background:rgba(0,0,0,0.8);
   align-items:center;
   justify-content:center;
   z-index:1000;
@@ -84,37 +99,41 @@ body {
   background:#111;
   color:#fff;
   width:100%;
-  max-width:520px;
+  max-width:600px;
   max-height:90vh;
   overflow-y:auto;
-  padding:1.5rem;
-  border-radius:10px;
+  padding:2rem;
+  border-radius:14px;
   text-align:left;
 }
 
 .modal-content img {
   max-width:100%;
-  height:auto;
-  margin-bottom:1rem;
-  border-radius:8px;
+  margin-bottom:1.5rem;
+  border-radius:12px;
 }
 
 .modal-content p {
-  margin-bottom:1rem;
-  line-height:1.5;
-  font-size:0.95rem;
+  margin-bottom:1.2rem;
+  line-height:1.6;
+  font-size:1rem;
 }
 
 .close {
-  background:#1e90ff;
+  background:#8B0000;
   color:white;
   border:none;
-  padding:0.6rem;
+  padding:0.8rem;
   width:100%;
-  margin-top:1rem;
-  border-radius:6px;
-  font-size:0.85rem;
+  margin-top:1.5rem;
+  border-radius:8px;
+  font-size:1rem;
   cursor:pointer;
+  transition: background 0.3s ease;
+}
+
+.close:hover {
+  background:#6d0000;
 }
 </style>
 </head>
@@ -125,7 +144,10 @@ body {
 Go to Module 03
 </button>
 
-<div class="layer" id="buttons-container"></div>
+<div class="layer">
+  <div class="row" id="top-row"></div>
+  <div class="row" id="bottom-row"></div>
+</div>
 
 <div class="modal" id="modal">
   <div class="modal-content">
@@ -137,45 +159,22 @@ Go to Module 03
 
 <script>
 
-/* =========================
-   HUMAN DATA (7 TOTAL)
-   ========================= */
-
 const humanData = {
 
-  "1": {
-    img: "images/human1.png",
-    p1: { text: "Human 1 text goes here." }
-  },
-
-  "2": {
-    img: "images/human2.png",
-    p1: { text: "Human 2 text goes here." }
-  },
-
-  "3": {
-    img: "images/human3.png",
-    p1: { text: "Human 3 text goes here." }
-  },
-
-  "4": {
-    img: "images/human4.png",
-    p1: { text: "Human 4 text goes here." }
-  },
-
-  "5": {
-    img: "images/human5.png",
-    p1: { text: "Human 5 text goes here." }
-  },
+  "1": { img: "images/human1.png", p1: { text: "Human 1 text goes here." }},
+  "2": { img: "images/human2.png", p1: { text: "Human 2 text goes here." }},
+  "3": { img: "images/human3.png", p1: { text: "Human 3 text goes here." }},
+  "4": { img: "images/human4.png", p1: { text: "Human 4 text goes here." }},
+  "5": { img: "images/human5.png", p1: { text: "Human 5 text goes here." }},
 
   "6": {
     img: "images/human6.png",
     p1: { 
-      text: `This design is a concept for a future where humans are monitored by AI through a brain chip, a watch, and an exoskeleton. 
+      text: `This design is a concept for a future where humans are monitored by AI through a brain chip, a watch, and an exoskeleton.
 
-The Brain Chip: It sits inside your head and tracks how much you rely on AI to think. 
+The Brain Chip: It sits inside your head and tracks how much you rely on AI to think.
 
-The Watch: This shows your "AI Score." If you use AI too much, your score goes up, and it becomes harder to get a job. You can also scan other people’s watches to see their scores. 
+The Watch: This shows your "AI Score." If you use AI too much, your score goes up, and it becomes harder to get a job. You can also scan other people’s watches to see their scores.
 
 The Exoskeleton: This is a suit that "fixes" your body. If you make a mistake while moving, the suit automatically moves your arms or legs to do it the "right" way.` 
     }
@@ -191,17 +190,14 @@ The Exoskeleton: This is a suit that "fixes" your body. If you make a mistake wh
 };
 
 
-/* =========================
-   CREATE BUTTONS
-   ========================= */
-
 function createButtons() {
-  const container = document.getElementById("buttons-container");
-  container.innerHTML = "";
 
-  Object.keys(humanData).forEach(id => {
+  const topRow = document.getElementById("top-row");
+  const bottomRow = document.getElementById("bottom-row");
+
+  Object.keys(humanData).forEach((id, index) => {
+
     const h = humanData[id];
-
     const wrapper = document.createElement("div");
     wrapper.className = "module";
 
@@ -215,14 +211,15 @@ function createButtons() {
     button.addEventListener("click", () => openModal(id));
     wrapper.appendChild(button);
 
-    container.appendChild(wrapper);
+    if (index < 4) {
+      topRow.appendChild(wrapper);
+    } else {
+      bottomRow.appendChild(wrapper);
+    }
+
   });
 }
 
-
-/* =========================
-   OPEN MODAL
-   ========================= */
 
 function openModal(id) {
 
@@ -233,18 +230,12 @@ function openModal(id) {
   document.getElementById("modal-image").alt = "human" + id;
 
   let contentHTML = "";
-
   if (h.p1) contentHTML += `<p>${h.p1.text.replace(/\n/g, "<br><br>")}</p>`;
   if (h.p2) contentHTML += `<p>${h.p2.text.replace(/\n/g, "<br><br>")}</p>`;
 
   document.getElementById("modal-text").innerHTML = contentHTML;
   document.getElementById("modal").style.display = "flex";
 }
-
-
-/* =========================
-   CLOSE MODAL
-   ========================= */
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
@@ -258,8 +249,6 @@ document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") closeModal();
 });
 
-
-/* INIT */
 createButtons();
 
 </script>
